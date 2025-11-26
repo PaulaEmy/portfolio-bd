@@ -5,6 +5,20 @@ const Projeto = require('../models/Projetos');
 
 const router = express.Router();
 
+router.get('/', async (req, res) => {
+  try {
+    const aluno = await Aluno.findOne();
+
+    res.render('index', {
+      nome: aluno ? aluno.nome : "Visitante"
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Erro ao carregar página inicial");
+  }
+});
+
+
 //ALUNO
 
 router.post('/aluno', async (req, res) => {
