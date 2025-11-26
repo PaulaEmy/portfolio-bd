@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/normalize.css" />
+    <link rel="stylesheet" href="/dashboard.css">  </head>
+<header>
+        <nav class="navbar">
+            <ul class="nav-links">
+                <li><a href="/">Início</a></li>
+                <li><a href="/sobre">Sobre mim</a></li>
+                <li><a href="/disciplinas">Disciplinas</a></li>
+                <li><a href="/projetos">Projetos</a></li>
+                <li><a href="/contato">Contato</a></li>
+                <li><a href="/dashboard">Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+<body>
+<div class="conteudo">
+  <h1>Dashboard</h1>
+
+  <div class="dashboard-cards">
+    <div class="card">
+      <h2>Total de Disciplinas</h2>
+      <p><%= totalDisciplinas %></p>
+    </div>
+    <div class="card">
+      <h2>Total de Projetos</h2>
+      <p><%= totalProjetos %></p>
+    </div>
+    <div class="card">
+      <h2>Projetos Concluídos</h2>
+      <p><%= concluidos %></p>
+    </div>
+  </div>
+
+  <h3>Tecnologias mais usadas:</h3>
+  <ul class="tec-container">
+    <% tecnologias.forEach(t => { %>
+      <li><%= t %></li>
+    <% }) %>
+  </ul>
+</div>
+
+</body>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Minhas Disciplinas</title>
+  <link rel="stylesheet" href="/disciplinas.css">
+</head>
+
+<header>
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="/">Início</a></li>
+            <li><a href="/sobre">Sobre mim</a></li>
+            <li><a href="/disciplinas">Disciplinas</a></li>
+            <li><a href="/projetos">Projetos</a></li>
+            <li><a href="/contato">Contato</a></li>
+            <li><a href="/dashboard">Dashboard</a></li>
+        </ul>
+    </nav>
+</header>
+
+<body>
+  <div class="conteudo">
+
+    <h1>Minhas Disciplinas</h1>
+
+    <div class="cursada">
+      <h2>Disciplinas Cursadas</h2>
+      <ul class="list">
+        <% disciplinas.cursadas.forEach(d => { %>
+          <li><%= d %></li>
+        <% }) %>
+      </ul>
+    </div>
+
+    <div class="andamento">
+      <h2>Em Andamento</h2>
+      <ul class="list">
+        <% disciplinas.andamento.forEach(d => { %>
+          <li>
+            <%= d %>
+
+            <form action="/disciplinas/mover" method="POST" style="display:inline;">
+              <input type="hidden" name="nome" value="<%= d %>">
+              <button type="submit" class="btn-mover">Mover para cursadas</button>
+            </form>
+
+            <button onclick="removerDisciplina('<%= d %>')" class="btn-deletar">Deletar</button>
+          </li>
+        <% }) %>
+      </ul>
+    </div>
+
+  </div>
+
+  <button class="btn-add">+</button>
+
+  <div id="modal-adicionar" class="modal">
+    <div class="modal-content">
+      <span id="fecharModalAdicionar" class="close">&times;</span>
+      <h3>Adicionar Disciplina</h3>
+
+      <form action="/disciplinas" method="POST">
+        <label>Nome da Disciplina:</label>
+        <input type="text" name="nome" required>
+
+        <label>Status:</label>
+        <select name="status">
+          <option value="cursadas">Cursada</option>
+          <option value="andamento">Em andamento</option>
+        </select>
+
+        <button type="submit">Adicionar</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
+
+<script>
+  const btnAdd = document.querySelector('.btn-add');
+  const modal = document.getElementById('modal-adicionar');
+  const fecharModal = document.getElementById('fecharModalAdicionar');
+
+  btnAdd.onclick = () => modal.style.display = 'flex';
+  fecharModal.onclick = () => modal.style.display = 'none';
+
+  window.onclick = e => {
+    if (e.target === modal) modal.style.display = 'none';
+  };
+
+  function removerDisciplina(nome) {
+    if (confirm(`Tem certeza que deseja remover "${nome}"?`)) {
+      fetch('/disciplinas', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome })
+      }).then(res => res.json()).then(data => {
+        alert(data.message);
+        location.reload();
+      })
+      .catch(() => alert("Erro ao remover"));
+    }
+  }
+</script>

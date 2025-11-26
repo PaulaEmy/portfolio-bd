@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/normalize.css" />
+    <link rel="stylesheet" href="/projetos.css" />
+    <title>Projetos</title>
+  </head>
+<body>
+<header>
+  <nav class="navbar">
+    <ul class="nav-links">
+      <li><a href="/">Início</a></li>
+      <li><a href="/sobre">Sobre mim</a></li>
+      <li><a href="/disciplinas">Disciplinas</a></li>
+      <li><a href="/projetos">Projetos</a></li>
+      <li><a href="/contato">Contato</a></li>
+      <li><a href="/dashboard">Dashboard</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="projetos">
+  <h1>Meus Projetos</h1>
+
+  <ul id="lista-projetos">
+    <% projetos.forEach(p => { %>
+      <li data-id="<%= p.id %>">
+        <strong><%= p.titulo %></strong><br>
+        <%= p.descricao %><br>
+        <% if (p.link) { %><a href="<%= p.link %>" target="_blank">Ver Projeto</a><br><% } %>
+
+        <% if (p.concluido) { %>
+          ✅ Concluído
+        <% } else { %>
+          🚧 Em andamento
+          <button class="btn-concluir" data-id="<%= p.id %>">Marcar como concluído</button>
+        <% } %>
+
+        <button class="btn-atualizar" data-id="<%= p.id %>" data-titulo="<%= p.titulo %>" data-descricao="<%= p.descricao %>" data-link="<%= p.link %>">Atualizar</button>
+        <button class="btn-deletar" data-id="<%= p.id %>">Deletar Projeto</button>
+      </li>
+    <% }) %>
+  </ul>
+
+  <button class="btn-add">+</button>
+</main>
+
+<!-- Modal atualizar -->
+<div id="modal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <span id="fecharModal" class="close">&times;</span>
+    <h3>Atualizar Projeto</h3>
+    <form id="formAtualizar">
+      <input type="hidden" id="idProjeto" name="id">
+      <input type="text" id="tituloProjeto" name="titulo" placeholder="Título" required>
+      <textarea id="descricaoProjeto" name="descricao" placeholder="Descrição" required></textarea>
+      <input type="text" id="linkProjeto" name="link" placeholder="Link">
+      <button type="submit">Salvar Alterações</button>
+    </form>
+  </div>
+</div>
+
+<!-- Modal adicionar -->
+<div id="modal-adicionar" class="modal" style="display:none;">
+  <div class="modal-content">
+    <span id="fecharModalAdicionar" class="close">&times;</span>
+    <h3>Adicionar Projeto</h3>
+    <form id="formAdicionar" action="/projetos" method="POST">
+      <input name="titulo" placeholder="Título" required>
+      <textarea name="descricao" placeholder="Descrição" required></textarea>
+      <input name="link" placeholder="Link">
+      <button type="submit">Adicionar</button>
+    </form>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // abrir modal adicionar
+  const modalAdicionar = document.getElementById('modal-adicionar');
+  const btnAdd = document.querySelector('.btn-add');
+  const fecharModalAdicionar = document.getElementById('fecharModalAdicionar');
+
+  btnAdd.onclick = () => modalAdicionar.style.display = 'flex';
+  fecharModalAdicionar.onclick = () => modalAdicionar.style.display = 'none';
+  window.onclick = e => { if (e.target === modalAdicionar) modalAdicionar.style.display = 'none'; }
+
+  // deletar
+  document.querySelectorAll(".btn-deletar").forEach(btn => {
+    btn.addEventListener("click", async (e) => {
+      const id = e.target.dataset.id;
+      if (!confirm('Deseja deletar este projeto?')) return;
+      const resp = await fetch(`/projetos/${id}`, { method: 'DELETE' });
+      if (resp.ok) location.reload(); else alert('Erro ao deletar');
+    });
+  });
+
+  // concluir
+  document.querySelectorAll(".btn-concluir").forEach(btn => {
+    btn.addEventListener("click", async (e) => {
+      const id = e.target.dataset.id;
+      const resp = await fetch(`/projetos/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ concluido: true })
+      });
+      if (resp.ok) location.reload(); else alert('Erro ao marcar como concluído');
+    });
+  });
+
+  // abrir modal atualizar
+  const modal = document.getElementById('modal');
+  const fecharModal = document.getElementById('fecharModal');
+  document.querySelectorAll(".btn-atualizar").forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const id = btn.dataset.id;
+      document.getElementById('idProjeto').value = id;
+      document.getElementById('tituloProjeto').value = btn.dataset.titulo || '';
+      document.getElementById('descricaoProjeto').value = btn.dataset.descricao || '';
+      document.getElementById('linkProjeto').value = btn.dataset.link || '';
+      modal.style.display = 'flex';
+    });
+  });
+  fecharModal.onclick = () => modal.style.display = 'none';
+  window.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; }
+
+  // submit atualizar via fetch PUT
+  document.getElementById('formAtualizar').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const id = document.getElementById('idProjeto').value;
+    const dados = {
+      titulo: document.getElementById('tituloProjeto').value,
+      descricao: document.getElementById('descricaoProjeto').value,
+      link: document.getElementById('linkProjeto').value
+    };
+    const resp = await fetch(`/projetos/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(dados)
+    });
+    if (resp.ok) location.reload(); else alert('Erro ao atualizar projeto');
+  });
+});
+</script>
+</body>
+</html>

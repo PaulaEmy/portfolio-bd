@@ -1,0 +1,357 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap");
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+  background-color: white;
+  font-family: "Source Code Pro", monospace;
+  color: rgb(70, 70, 70);
+}
+
+/*##########    MENU    ##########*/
+
+.navbar {
+  
+  width: 100%;
+  background-color: #d45b8c;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  padding: 15px 20px;
+  align-items: center;
+  box-sizing: border-box;
+}
+ 
+.nav-links {
+  grid-column: span 1;
+  list-style: none;
+  margin: 10px;
+  padding: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+ 
+.nav-links li {
+  margin: 0 20px;
+  margin-top: 10px;
+  font-size: 80%;
+}
+ 
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+ 
+a:hover {
+  color: #683545;
+  transition: 0.5s;
+}
+
+/*##########    CONTEÚDO PRINCIPAL ##########*/
+
+.conteudo {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 90%;
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.conteudo h1 {
+  color: #d45b8c;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/*##########    SOBRE    ##########*/
+
+.sobre {
+  position: relative;
+  border: 5px solid #d45b8c;
+  border-radius: 20px;
+  padding: 40px 30px 30px 30px; 
+  font-size: 15px;
+  text-align: center;
+  margin: 0 auto;
+  background-color: white;
+}
+
+.img-circulo {
+  position: absolute;
+  top: -50px;
+  right: 85%;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 6px solid #d45b8c;
+  background-color: white;
+  z-index: 10;
+}
+ 
+.img-circulo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+.sobre h2, .sobre h3 {
+  margin: 10px 0;
+  color: rgb(70, 70, 70);
+}
+
+.sobre a {
+  text-decoration: none;
+  color: #d45b8c;
+  font-weight: bold;
+  display: inline-block;
+  margin: 15px 0;
+  transition: color 0.5s;
+}
+
+.sobre a:hover {
+  color: #683545;
+}
+
+.sobre p {
+  color: rgb(70, 70, 70);
+  line-height: 1.6;
+  margin: 20px 0;
+}
+
+/*##########    SOFTSKILLS/TECNOLOGIAS    ##########*/
+
+.container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  h1 {
+    color: #d45b8c;
+  }
+}
+
+.tech {
+  border: 5px solid #d45b8c;
+  border-radius: 20px;
+  padding: 10px;
+  font-size: 18px;
+  text-align: center;
+  background-color: #d45b8c;
+  align-items: center;
+  justify-content: center;
+  h1 {
+    color: #fff;
+  }
+}
+
+.logo {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  place-items: center;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.logo img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.logo img:hover {
+  transform: scale(1.1);
+}
+
+.softskills {
+  border: 5px solid #d45b8c;
+  border-radius: 20px;
+  padding: 40px 30px;
+  font-size: 15px;
+  text-align: center;
+  background-color: white;
+}
+
+.softskills ul {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  text-align: left;
+}
+
+.softskills li {
+  color: rgb(70, 70, 70);
+  line-height: 1.6;
+  padding: 0 10px;
+}
+
+.softskills strong {
+  color: #d45b8c;
+}
+
+/*##########    EDUCAÇÃO    ##########*/
+
+.education {
+  gap: 50px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  background-color: white;
+  padding: 50px;
+  h1 {
+    text-align: left;
+    color: #d45b8c;
+  }
+
+  p {
+    color: rgb(70, 70, 70);
+  }
+
+  h2 {
+    color: rgb(70, 70, 70);
+    text-align: left;
+    margin-left: 5%;
+  }
+}
+
+.escola {
+  grid-column: 2;
+  grid-row: 1;
+  border: 5px solid #d45b8c;
+  border-radius: 20px;
+  padding: 20px;
+  font-size: 18px;
+  text-align: center;
+}
+
+.escola ul {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  list-style-type: none;
+  text-align: left;
+  padding: 20px;
+  margin: 0 auto;
+}
+
+/*##########    EXPERIÊNCIA    ##########*/
+
+.experience {
+  grid-column: 2;
+  grid-row: 2;
+  border: 5px solid #d45b8c;
+  border-radius: 20px;
+  padding: 30px;
+  font-size: 18px;
+  text-align: center;
+}
+
+.experience ul {
+  color: rgb(70, 70, 70);
+  list-style-type: none;
+  text-align: center;
+  padding: 0;
+  margin: 0 auto;
+}
+
+/*##########    CERTIFICADOS    ##########*/
+
+.certificados {
+  grid-row: 1 / 3;
+  grid-column: 1;
+  border: 5px solid #d45b8c;
+  border-radius: 20px;
+  padding: 30px;
+  font-size: 18px;
+  text-align: center;
+}
+
+.certificados .links {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.certificados ul {
+  color: rgb(70, 70, 70);
+  text-align: center;
+  padding: 0;
+  list-style: none;
+  margin-bottom: 16px;
+}
+
+.certificados li {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.certificados a {
+  display: inline-block;
+  width: fit-content;
+  text-align: left;
+  color: #d45b8c;
+  text-decoration: underline;
+  font-weight: bold;
+  transition: 0.5s;
+}
+
+.certificados a:hover {
+  color: #683545;
+}
+
+
+/*##########    RESPONSIVIDADE    ##########*/
+
+@media (max-width: 768px) {
+  .nav-links {
+    gap: 20px;
+  }
+  
+  .nav-links a {
+    font-size: 14px;
+  }
+  
+  .conteudo {
+    gap: 30px;
+    margin: 20px auto;
+  }
+  
+  .sobre, .softskills {
+    padding: 30px 20px;
+  }
+  
+  .img-circulo {
+    width: 100px;
+    height: 100px;
+    top: -50px;
+  }
+  
+  .softskills ul {
+    gap: 20px;
+    text-align: center;
+  }
+}
